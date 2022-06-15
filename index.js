@@ -9,19 +9,22 @@ const user_routes = require('./Routes/user');
 
 const app = express();
 
-app.use(express.static(__dirname+'/public/'));
-
 
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 
-DB.sequelize.sync({force: true}).then(() => {
-    console.log('Drop and Resync with { force: true }');
+DB.sequelize.sync({force: false}).then(() => {
+    console.log('Drop and Resync with { force: false }');
   });
 
 app.group("/api/v1/auth", (router) => {
     router.use('/users', user_routes);
-    // router.use('/test', routes)
+    // router.use('/all', get_all)
+});
+
+app.get('/', (req, res) => {
+    res.json({message: 'hello derrick'});
 });
 
 
