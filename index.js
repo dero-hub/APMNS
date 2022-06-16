@@ -20,12 +20,8 @@ DB.sequelize.sync({force: false}).then(() => {
 
 app.group("/api/v1/auth", (router) => {
     router.use('/users', user_routes);
-    // router.use('/all', get_all)
 });
 
-app.get('/', (req, res) => {
-    res.json({message: 'hello derrick'});
-});
 
 
 const PORT = process.env.PORT || 4000;
