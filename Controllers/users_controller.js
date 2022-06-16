@@ -11,6 +11,17 @@ exports.create = async (req, res) => {
       }
 }
 
+exports.login = async (req, res) => {
+    try {
+        let data = {
+            User: await users_service.login(req.body, res)
+        };
+        return data;
+    } catch (err) {  
+        return err.message;
+      }
+}
+
 exports.getOne = async (req, res) => {
     try {
         let id = req.params.id;
