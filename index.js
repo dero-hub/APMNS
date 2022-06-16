@@ -6,6 +6,7 @@ require('express-group-routes');
 
 
 const user_routes = require('./Routes/user');
+const slots_routes = require('./Routes/slots');
 
 const app = express();
 
@@ -22,7 +23,9 @@ app.group("/api/v1/auth", (router) => {
     router.use('/users', user_routes);
 });
 
-
+app.group("/api/v1/dash", (router) => {
+    router.use('/slots', slots_routes);
+});
 
 const PORT = process.env.PORT || 4000;
 

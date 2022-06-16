@@ -64,7 +64,7 @@ exports.create = async (req, res) => {
     const str = JSON.stringify(savedUser);
     const prs = JSON.parse(str);
 
-    const token = jwt.generateAccessToken({ id: prs.id, phone: prs.phone });
+    const token = jwt.generateAccessToken(prs.id, prs.phone );
     prs.token = token;
     console.log(prs);
 
@@ -125,7 +125,7 @@ exports.login = async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
       // Create token
       // save user token
-      user.token = jwt.generateAccessToken({ id: user.id, phone: user.phone });
+      user.token = jwt.generateAccessToken(user.id, user.phone);
       res.status(200).json(user.token);
     } else {
       msg = "Invalid credentials try again";

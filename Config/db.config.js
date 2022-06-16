@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize("appointments", "root", "derrick3", {
+const dotenv = require("dotenv");
+dotenv.config();
+const sequelize = new Sequelize(process.env.DB, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
   host: 'localhost',
   dialect: 'mysql',
 
@@ -17,5 +19,9 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.User = require('../Models/users')(sequelize, Sequelize);
+db.Slots = require('../Models/slots')(sequelize, Sequelize);
+
+db.User.hasMany(db.Slots, {foreignKey: 'userId', sourceKey: 'id'});
+db.Slots.belongsTo(db.User, {foreignKey: 'slotId', targetKey: 'id'});
 
 module.exports = db;

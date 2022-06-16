@@ -3,23 +3,23 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-exports.generateAccessToken = ({id, phone}) => {
-    return jwt.sign({id, phone}, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
+exports.generateAccessToken = (user_id, phone) => {
+    return jwt.sign({user_id: user_id, phone: phone}, process.env.TOKEN_SECRET, { expiresIn: '2h' });
   } 
 
-exports.authenticateToken = async(req, res, next) => {
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
+   exports.verifyToken = (req, res, next) => {
+    const token =
+      req.body.token || req.query.token || req.headers["x-access-token"];
   
-    if (token == null) return res.sendStatus(401)
+    if (!token) {
+      return res.status(403).json({message: "A token is required for authentication"});
+    }
+    try {
+      const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+      req.user = decoded;
+    } catch (err) {
+      return res.status(401).json({message: "Invalid Token"});
+    }
+    return next();
+  };
   
-    jwt.verify(token, process.env.TOKEN_SECRET,  (err, user) => {
-      console.log(err)
-  
-      if (err) return res.status(403)
-  
-      req.user = user
-  
-      next()
-    })
-  }
