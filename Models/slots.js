@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Slot = sequelize.define("users", {
+  const Slot = sequelize.define("slots", {
     name: {
       type: Sequelize.STRING
     },
@@ -7,10 +7,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     start_time: {
-      type: Sequelize.DATE,
+      type: Sequelize.STRING,
     },
     end_time: {
-      type: Sequelize.DATE,
+      type: Sequelize.STRING,
     }
   });
 
