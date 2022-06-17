@@ -233,7 +233,7 @@ exports.deleteAll = async (req, res) => {
 
     await UsersModel.destroy({ where: {} });
 
-    msg = `Records deleed successfully!`;
+    msg = `Records deleted successfully!`;
     return res.status(200).json(exeption(msg));
   } catch (err) {
     res.status(500).json(err.message);

@@ -11,6 +11,12 @@ module.exports = (sequelize, Sequelize) => {
     },
     end_time: {
       type: Sequelize.STRING,
+    },
+    duration: {
+      type: Sequelize.STRING
+    },
+    status: {
+      type: Sequelize.STRING
     }
   });
 
