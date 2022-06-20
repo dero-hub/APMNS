@@ -4,7 +4,7 @@ const jwt = require('../Security/auth');
 
 const router = express.Router();
 
-router.post('/create', jwt.verifyToken, slots_controller.create);
+router.post('/create', slots_controller.create);
 router.put('/update/:id', jwt.verifyToken, slots_controller.update);
 router.get('/list', jwt.verifyToken, slots_controller.findAll);
 router.delete('/delete', jwt.verifyToken, slots_controller.deleteAll);
