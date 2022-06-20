@@ -1,5 +1,6 @@
 const db = require("../Config/db.config.js");
 const SlotsModel = db.Slots;
+const UsersModel = db.User;
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -11,7 +12,7 @@ const exeption = (msg) => {
   return message;
 }
 
-  exports.create = async(req, res) => {
+  exports.create = async(id, req, res) => {
     try {
         let {name, description, start_time, end_time} = req;
 
@@ -19,7 +20,8 @@ const exeption = (msg) => {
             name: name,
             description: description,
             start_time: start_time,
-            end_time: end_time
+            end_time: end_time,
+            userId: id
         }
 
         if(!(start_time && end_time)){
@@ -39,7 +41,7 @@ const exeption = (msg) => {
         let savedSlot = await SlotsModel.create(slot);
         const str = JSON.stringify(savedSlot);
         const prs = JSON.parse(str);
-         console.log(prs);
+
         return res.status(200).json(prs)
 
     } catch (err) {

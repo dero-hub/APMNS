@@ -1,9 +1,12 @@
-const slots_service = require("../Services/slots_service")
+const slots_service = require("../Services/slots_service");
+const jwt = require('../Security/auth');
 
 exports.create = async (req, res) => {
     try {
+      let id =  jwt.verifyToken(req, res);
+
         let data = {
-            Slot: await slots_service.create(req.body, res)
+            Slot: await slots_service.create(id.user_id ,req.body, res)
         };
         return data;
     } catch (err) {  
