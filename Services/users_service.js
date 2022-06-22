@@ -139,7 +139,7 @@ exports.login = async (req, res) => {
 
 exports.getOne = async (id, res) => {
   try {
-    let user = await UsersModel.findOne({ where: { id: id } });
+    let user = await UsersModel.findOne({ where: { id: id }, include: ["slots"] });
     let userStr = JSON.stringify(user);
     let userPar = JSON.parse(userStr);
 
@@ -158,7 +158,7 @@ exports.getOne = async (id, res) => {
 
 exports.getAll = async (req, res) => {
   try {
-    let users = await UsersModel.findAll();
+    let users = await UsersModel.findAll({include: ["slots"]});
     let str = JSON.stringify(users);
     let par = JSON.parse(str);
 

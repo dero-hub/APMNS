@@ -21,7 +21,7 @@ db.sequelize = sequelize;
 db.User = require('../Models/users')(sequelize, Sequelize);
 db.Slots = require('../Models/slots')(sequelize, Sequelize);
 
-db.User.hasMany(db.Slots, {foreignKey: 'userId', sourceKey: 'id'});
-db.Slots.belongsTo(db.User, {foreignKey: 'slotId', targetKey: 'id'});
+db.User.hasMany(db.Slots, {as: "slots"});
+db.Slots.belongsTo(db.User, {foreignKey: 'userId', as: 'user'});
 
 module.exports = db;
